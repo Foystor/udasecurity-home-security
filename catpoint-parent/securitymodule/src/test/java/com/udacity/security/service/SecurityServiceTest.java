@@ -212,4 +212,32 @@ class SecurityServiceTest {
 
         verify(securityRepository).setAlarmStatus(AlarmStatus.ALARM);
     }
+
+    // full coverage
+    /**
+     * If alarm is active and the system is disarmed, put the system into pending alarm status
+     */
+    @Test
+    void alarmActiveAndSystemDisarmed_changeToPending() {
+        when(securityRepository.getArmingStatus()).thenReturn(ArmingStatus.DISARMED);
+        when(securityRepository.getAlarmStatus()).thenReturn(AlarmStatus.ALARM);
+
+        securityService.changeSensorActivationStatus(sensor);
+
+        verify(securityRepository).setAlarmStatus(AlarmStatus.PENDING_ALARM);
+    }
+
+    /**
+     * If a sensor is deactivated while active and the system is already pending alarm,
+     * return to no alarm state
+     */
+    @Test
+    void handleSensorDeactivated_sensorActiveAndSystemPending_returnToNoAlarm() {
+        when(securityRepository.getAlarmStatus()).thenReturn(AlarmStatus.PENDING_ALARM);
+        sensor.setActive(true);
+
+        securityService.changeSensorActivationStatus(sensor,false);
+
+        verify(securityRepository).setAlarmStatus(AlarmStatus.NO_ALARM);
+    }
 }
