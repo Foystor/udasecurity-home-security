@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="catpoint-parent" />
+        <module name="securitymodule" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="imagemodule" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>
