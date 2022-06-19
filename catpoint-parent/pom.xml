@@ -20,6 +20,7 @@
 
   <modules>
     <module>securitymodule</module>
+    <module>imagemodule</module>
   </modules>
 
   <dependencies>
